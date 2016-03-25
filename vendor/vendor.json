@@ -1,0 +1,31 @@
+{
+	"comment": "",
+	"ignore": "",
+	"package": [
+		{
+			"checksumSHA1": "Mogsvws4RIgrXE2u58ZeJgqbJu4=",
+			"path": "github.com/golang/protobuf/proto",
+			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
+			"revisionTime": "2016-03-19T05:57:00+11:00"
+		},
+		{
+			"checksumSHA1": "IXHPoWC6diJ+fnQ2ZKkrGGC8Meo=",
+			"path": "github.com/golang/protobuf/proto/proto3_proto",
+			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
+			"revisionTime": "2016-03-19T05:57:00+11:00"
+		},
+		{
+			"checksumSHA1": "mhSUJmWgMU/f+DYyyQf390fnFQE=",
+			"path": "github.com/golang/protobuf/proto/testdata",
+			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
+			"revisionTime": "2016-03-19T05:57:00+11:00"
+		},
+		{
+			"checksumSHA1": "ziJ4U3fMgzYUaflqefqATULDFv0=",
+			"path": "github.com/golang/protobuf/ptypes/any",
+			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
+			"revisionTime": "2016-03-19T05:57:00+11:00"
+		}
+	],
+	"rootPath": "github.com/gclitheroe/exp"
+}
