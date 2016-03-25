@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package quake;
+option go_package = "quake";
+
+// Quake is for earthquake information.
+message Quake {
+	// All the Phase used to locate the quake.
+	repeated Phase phases = 1;
+	// Magnitude all the magnitudes associated with the quake.
+	repeated Magnitude magnitudes = 2;
+
+
+	string public_iD = 10;
+	string type = 11;
+
+
+	Timestamp time = 12;
+
+	double latitude = 13;
+	double latitude_uncertainty = 14;
+
+	double longitude = 15;
+	double longitude_uncertainty = 16;
+
+	double depth = 17;
+	double depth_uncertainty = 18;
+
+	string depth_type = 19;
+
+	double magnitude = 20;
+	double magnitude_uncertainty = 21;
+	string magnitude_type = 22;
+	int64 magnitude_station_count = 23;
+
+	string method = 24;
+	string earth_model = 25;
+
+	string evaluation_mode = 26;
+	string evaluation_status = 27;
+
+	int64 used_phase_count = 28;
+	int64 used_station_count = 29;
+	double standard_error = 30;
+	double azimuthal_gap = 31;
+	double minimum_distance = 32;
+
+	string agency = 33;
+	Timestamp modification_time = 34;
+
+}
+
+// Phase represents a seismic phase.
+message Phase {
+	string network_code = 1;
+	string station_code = 2;
+	string location_code = 3;
+	string channel_code = 4;
+
+	string phase = 5;
+
+	Timestamp time = 6;
+
+	double residual = 7;
+	double weight = 8;
+
+	double azimuth = 9;
+	double distance = 10;
+
+	string evaluation_mode = 11;
+	string evaluation_status = 12;
+}
+
+// Magnitude represents a quake magnitude.
+message Magnitude {
+	// StationMagnitude that have contributed to the Magnitude.
+	repeated StationMagnitude station_magnitude = 1;
+
+	double magnitude = 2;
+	double magnitude_uncertainty = 3;
+	string type = 4;
+	string method = 5;
+	int64 station_count = 6;
+}
+
+// StationMagnitude the magnitude calculated at a single station.
+message StationMagnitude {
+	string network_code = 1;
+	string station_code = 2;
+	string location_code = 3;
+	string channel_code = 4;
+
+	double magnitude = 5;
+	string type = 6;
+
+	double residual = 7;
+	double weight = 8;
+
+	double amplitude = 9;
+}
+
+// Timestamp for encoding time stamps.
+message Timestamp {
+// Unix time in seconds
+  int64 seconds = 1;
+// Frational part of time in nanoseconds.
+  int64 nanos = 2;
+}
