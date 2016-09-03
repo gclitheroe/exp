@@ -1,30 +1,102 @@
 {
 	"comment": "",
-	"ignore": "",
+	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "Mogsvws4RIgrXE2u58ZeJgqbJu4=",
+			"checksumSHA1": "5MVpi9U1WCrzZ1VMMn61Fc+trE0=",
 			"path": "github.com/golang/protobuf/proto",
-			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
-			"revisionTime": "2016-03-19T05:57:00+11:00"
+			"revision": "c3cefd437628a0b7d31b34fe44b3a7a540e98527",
+			"revisionTime": "2016-07-27T17:26:17Z"
 		},
 		{
-			"checksumSHA1": "IXHPoWC6diJ+fnQ2ZKkrGGC8Meo=",
-			"path": "github.com/golang/protobuf/proto/proto3_proto",
-			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
-			"revisionTime": "2016-03-19T05:57:00+11:00"
+			"checksumSHA1": "9jjO5GjLa0XF/nfWihF02RoH4qc=",
+			"path": "golang.org/x/net/context",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
 		},
 		{
-			"checksumSHA1": "mhSUJmWgMU/f+DYyyQf390fnFQE=",
-			"path": "github.com/golang/protobuf/proto/testdata",
-			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
-			"revisionTime": "2016-03-19T05:57:00+11:00"
+			"checksumSHA1": "FHVECG4hVFGco6QCPrkYa5DaCvc=",
+			"path": "golang.org/x/net/http2",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
 		},
 		{
-			"checksumSHA1": "ziJ4U3fMgzYUaflqefqATULDFv0=",
-			"path": "github.com/golang/protobuf/ptypes/any",
-			"revision": "8d92cf5fc15a4382f8964b08e1f42a75c0591aa3",
-			"revisionTime": "2016-03-19T05:57:00+11:00"
+			"checksumSHA1": "EYNaHp7XdLWRydUCE0amEkKAtgk=",
+			"path": "golang.org/x/net/http2/hpack",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
+		},
+		{
+			"checksumSHA1": "/k7k6eJDkxXx6K9Zpo/OwNm58XM=",
+			"path": "golang.org/x/net/internal/timeseries",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
+		},
+		{
+			"checksumSHA1": "yhndhWXMs/VSEDLks4dNyFMQStA=",
+			"path": "golang.org/x/net/lex/httplex",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
+		},
+		{
+			"checksumSHA1": "WpST9lFOHvWrjDVy0GJNqHe+R3E=",
+			"path": "golang.org/x/net/trace",
+			"revision": "f841c39de738b1d0df95b5a7187744f0e03d8112",
+			"revisionTime": "2016-06-30T00:53:42Z"
+		},
+		{
+			"checksumSHA1": "jqAFEb7pB05+KKjWAjDGUrmArto=",
+			"path": "google.golang.org/grpc",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "08icuA15HRkdYCt6H+Cs90RPQsY=",
+			"path": "google.golang.org/grpc/codes",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "DIkgFG8yLaYAPpfc9jHKL28A09s=",
+			"path": "google.golang.org/grpc/credentials",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "3Lt5hNAG8qJAYSsNghR5uA1zQns=",
+			"path": "google.golang.org/grpc/grpclog",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "T3Q0p8kzvXFnRkMaK/G8mCv6mc0=",
+			"path": "google.golang.org/grpc/internal",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "rxtneb9jDjKPHNZhC5obfG++6bI=",
+			"path": "google.golang.org/grpc/metadata",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "4GSUFhOQ0kdFlBH4D5OTeKy78z0=",
+			"path": "google.golang.org/grpc/naming",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "3RRoLeH6X2//7tVClOVzxW2bY+E=",
+			"path": "google.golang.org/grpc/peer",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
+		},
+		{
+			"checksumSHA1": "6ki+hIksBXVJM8nolUq/GTV16V8=",
+			"path": "google.golang.org/grpc/transport",
+			"revision": "35896af9ad39c1fb1b1cd925fe3621be361e3d81",
+			"revisionTime": "2016-08-03T04:27:28Z"
 		}
 	],
 	"rootPath": "github.com/gclitheroe/exp"
