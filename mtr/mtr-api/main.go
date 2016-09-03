@@ -16,6 +16,7 @@ import (
 	"crypto/x509/pkix"
 	"crypto/rand"
 	"crypto/tls"
+	"github.com/GeoNet/mtr/mtrapp"
 )
 
 var tokenWrite = os.Getenv("MTR_TOKEN_WRITE")
@@ -52,7 +53,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(grpc.UnaryInterceptor(telemetry))
 
 	register(s)
 
@@ -129,4 +130,37 @@ func selfie() (tls.Certificate, error) {
 		Certificate: [][]byte{ca_b},
 		PrivateKey:  p,
 	}, nil
+}
+
+// telemetry is a UnaryServerInterceptor.
+// adds timing and metrics.
+func telemetry(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	t := mtrapp.Start()
+
+	i, err := handler(ctx, req)
+
+	mtrapp.Requests.Inc()
+
+	if err == nil {
+		t.Track(info.FullMethod)
+		mtrapp.StatusOK.Inc()
+		log.Printf("%s took %d (ms)", info.FullMethod, t.Taken())
+	} else {
+		// Remap the grpc codes to the existing (http based) mtr counters.
+		// Could add mtr counters for grpc.
+		switch grpc.Code(err) {
+		case codes.InvalidArgument:
+			mtrapp.StatusBadRequest.Inc()
+		case codes.Unauthenticated:
+			mtrapp.StatusUnauthorized.Inc()
+		case codes.NotFound:
+			mtrapp.StatusNotFound.Inc()
+		case codes.FailedPrecondition:
+			mtrapp.StatusInternalServerError.Inc()
+		case codes.Unavailable:
+			mtrapp.StatusServiceUnavailable.Inc()
+		}
+	}
+
+	return i, err
 }

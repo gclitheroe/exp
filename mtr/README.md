@@ -1,8 +1,6 @@
 # gRPC Experiment
 
 * An experiment with gRPC http://www.grpc.io/
-* simple token based auth.
-* self signed TLS cert generated on the fly.
 * useful for learning gRPC https://github.com/kelseyhightower/grpc-hello-service
 
 ## Compiling and Running
@@ -18,6 +16,8 @@ protoc --proto_path=protobuf/data/ --go_out=plugins=grpc:data protobuf/data/*
 
 ### Server
 
+* simple token based auth.
+* self signed TLS cert generated on the fly.
 * Integration tests for the server:
 
 ```
@@ -45,8 +45,3 @@ export $(cat env.list | grep = | xargs); go build && ./mtr-api
 cd mtr-client
 export $(cat env.list | grep = | xargs); go build && ./mtr-client
 ``` 
-
-### Telemetry and Logging
-
-* Can't do middleware like with http.
-* Interceptors have been very recently added which should allow for telemetry https://github.com/grpc/grpc-go/issues/240  
