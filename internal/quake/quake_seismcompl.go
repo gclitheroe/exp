@@ -1,6 +1,6 @@
 package quake
 
-import "github.com/gclitheroe/exp/seiscompml07"
+import "github.com/gclitheroe/exp/internal/seiscompml07"
 
 /*
 FromSeiscompml07 converts seiscompml07.Event to a Quake.

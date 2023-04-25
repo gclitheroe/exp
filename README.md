@@ -27,11 +27,11 @@ Defines structs and methods for reading [SeisComPML 0.7](http://geofon.gfz-potsd
 There are tests to unmarshal a SeisComPML file and marshal it as a Quake protobuf, XML, and JSON files.  Not all information in the SeisComPML is present in the Quake message.  
 
 ```
-go test ./quake ./seiscompml07
+go test ./...
 ok  	github.com/gclitheroe/exp/quake	0.041s
 ok  	github.com/gclitheroe/exp/seiscompml07	0.050s
 
-ls -l seiscompml07/etc quake/etc
+ls -l internal/seiscompml07/etc internal/quake/etc
 
 495917 seiscompml07/etc/2015p768477.xml - the complete SeisComPML file.
 113830 quake/etc/2015p768477.xml - Quake file as XML
@@ -44,7 +44,7 @@ ls -l seiscompml07/etc quake/etc
 There are benchmark tests to unmarshal a SeisComPML and Quake protobuf, XML, and JSON files to their related Go types.  The benchmarks preform the unmarshal on `[]byte` so as to remove any i/o bias.
 
 ```
-go test -bench=.  ./quake ./seiscompml07
+go test -bench=.  ./internal/quake ./internal/seiscompml07
 
 BenchmarkUnmarshalSeiscompml-4	        50	  30269773 ns/op - SeisComPML XML
 BenchmarkUnmarshalQuakeXML-4     	     200	   8545983 ns/op - Quake XML

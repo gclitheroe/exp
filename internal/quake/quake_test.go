@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
+	"github.com/gclitheroe/exp/internal/seiscompml07"
 	"io/ioutil"
 	"os"
 	"testing"
 	"time"
 
-	"github.com/gclitheroe/exp/seiscompml07"
 	"github.com/golang/protobuf/proto"
 )
 
