@@ -5,7 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/gclitheroe/exp/internal/seiscompml07"
-	"io/ioutil"
+	"io"
 	"os"
 	"testing"
 	"time"
@@ -27,7 +27,7 @@ func TestQuakeProto(t *testing.T) {
 	}
 	defer f.Close()
 
-	if b, err = ioutil.ReadAll(f); err != nil {
+	if b, err = io.ReadAll(f); err != nil {
 		return
 	}
 
@@ -177,7 +177,7 @@ func BenchmarkUnmarshalQuakeXML(b *testing.B) {
 	}
 	defer f.Close()
 
-	if by, err = ioutil.ReadAll(f); err != nil {
+	if by, err = io.ReadAll(f); err != nil {
 		return
 	}
 
@@ -211,7 +211,7 @@ func BenchmarkUnmarshalQuakeJSON(b *testing.B) {
 	}
 	defer f.Close()
 
-	if by, err = ioutil.ReadAll(f); err != nil {
+	if by, err = io.ReadAll(f); err != nil {
 		return
 	}
 
@@ -245,7 +245,7 @@ func BenchmarkUnmarshalQuakeProtobuf(b *testing.B) {
 	}
 	defer f.Close()
 
-	if by, err = ioutil.ReadAll(f); err != nil {
+	if by, err = io.ReadAll(f); err != nil {
 		return
 	}
 
@@ -279,7 +279,7 @@ func create() (err error) {
 	}
 	defer f.Close()
 
-	if b, err = ioutil.ReadAll(f); err != nil {
+	if b, err = io.ReadAll(f); err != nil {
 		return
 	}
 
@@ -297,7 +297,7 @@ func create() (err error) {
 		return
 	}
 
-	if err = ioutil.WriteFile("etc/2015p768477.pb", b, 0644); err != nil {
+	if err = os.WriteFile("etc/2015p768477.pb", b, 0644); err != nil {
 		return
 	}
 
@@ -305,7 +305,7 @@ func create() (err error) {
 		return
 	}
 
-	if err = ioutil.WriteFile("etc/2015p768477.xml", b, 0644); err != nil {
+	if err = os.WriteFile("etc/2015p768477.xml", b, 0644); err != nil {
 		return
 	}
 
@@ -313,7 +313,7 @@ func create() (err error) {
 		return
 	}
 
-	if err = ioutil.WriteFile("etc/2015p768477.json", b, 0644); err != nil {
+	if err = os.WriteFile("etc/2015p768477.json", b, 0644); err != nil {
 		return
 	}
 
