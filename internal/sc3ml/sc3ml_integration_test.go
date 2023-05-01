@@ -1,6 +1,7 @@
+//go:build integration
 // +build integration
 
-package seiscompml07
+package sc3ml
 
 import (
 	"io/ioutil"
@@ -13,7 +14,7 @@ import (
 // under /work/seismcompml07-test and make sure basic quake facts
 // are not zero values.  Run using:
 //
-//     go test -tags=integration
+//	go test -tags=integration
 func TestUnmarshalIntegration(t *testing.T) {
 	var err error
 	var ep EventParameters

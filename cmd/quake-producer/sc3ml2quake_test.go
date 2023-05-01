@@ -5,7 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/gclitheroe/exp/internal/quake"
-	"github.com/gclitheroe/exp/internal/seiscompml07"
+	"github.com/gclitheroe/exp/internal/sc3ml"
 	"io"
 	"os"
 	"path/filepath"
@@ -29,7 +29,7 @@ func setup() (dir string, cleanup func() error, err error) {
 		return os.RemoveAll(dir)
 	}
 
-	var ep seiscompml07.EventParameters
+	var ep sc3ml.EventParameters
 	var f *os.File
 	var b []byte
 
@@ -43,7 +43,7 @@ func setup() (dir string, cleanup func() error, err error) {
 		return dir, c, err
 	}
 
-	if ep, err = seiscompml07.Unmarshal(b); err != nil {
+	if ep, err = sc3ml.Unmarshal(b); err != nil {
 		return dir, c, err
 	}
 
@@ -52,7 +52,7 @@ func setup() (dir string, cleanup func() error, err error) {
 		return dir, c, err
 	}
 
-	q := fromSeiscompml07(ep.Events[0])
+	q := fromSC3ML(ep.Events[0])
 	if b, err = proto.Marshal(&q); err != nil {
 		return dir, c, err
 	}

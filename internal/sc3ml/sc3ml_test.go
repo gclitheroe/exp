@@ -1,4 +1,4 @@
-package seiscompml07
+package sc3ml
 
 import (
 	"io"

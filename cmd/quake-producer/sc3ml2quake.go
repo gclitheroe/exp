@@ -2,15 +2,15 @@ package main
 
 import (
 	"github.com/gclitheroe/exp/internal/quake"
-	"github.com/gclitheroe/exp/internal/seiscompml07"
+	"github.com/gclitheroe/exp/internal/sc3ml"
 )
 
 /*
-fromSeiscompml07 converts seiscompml07.Event to a Quake.
+fromSC3ML converts sc3ml.Event to a Quake.
 Only Arrivals and StationMagnitudeContribution that have contributed
 to Origins or Magnitudes (Weight > 0) are included in the Quake.
 */
-func fromSeiscompml07(e seiscompml07.Event) quake.Quake {
+func fromSC3ML(e sc3ml.Event) quake.Quake {
 	mt := e.ModificationTime()
 
 	q := quake.Quake{

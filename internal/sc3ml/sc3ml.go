@@ -1,12 +1,11 @@
 /*
-Package seiscompml07 is for parsing SeisComPML version 0.7
-e.g., http://geofon.gfz-potsdam.de/schema/0.7/sc3ml_0.7.xsd
+Package sc3ml is for parsing SeisComPML
 
 The schema allows many elements to be 0..1 or 0..* The elements
 mapped here are assumed to be present and will have zero values
 if not.
 */
-package seiscompml07
+package sc3ml
 
 import (
 	"encoding/xml"
@@ -149,6 +148,8 @@ type Amplitude struct {
 // Unmarshal unmarshals the SeisComPML in b and initialises all
 // the objects referenced by ID in the SeisComPML e.g., PreferredOrigin,
 // PreferredMagnitude etc.
+// Does not do any checking for the SC3ML version - future versions may be incompatible.
+// See https://github.com/GeoNet/kit/tree/main/sc3ml for a pkg with version checking.
 func Unmarshal(b []byte) (EventParameters, error) {
 	var q Seiscomp
 
@@ -224,7 +225,7 @@ func (e *Event) ModificationTime() time.Time {
 
 //
 ///*
-//FromSeiscompml07 converts seiscompml07.Event to a Quake.
+//FromSeiscompml07 converts sc3ml.Event to a Quake.
 //Only Arrivals and StationMagnitudeContribution that have contributed
 //to Origins or Magnitudes (Weight > 0) are included in the Quake.
 //*/
