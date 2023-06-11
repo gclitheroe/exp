@@ -3,9 +3,7 @@ package main
 import (
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
 	"github.com/gclitheroe/exp/internal/quake"
-	"github.com/gclitheroe/exp/internal/sc3ml"
 	"io"
 	"os"
 	"path/filepath"
@@ -29,30 +27,13 @@ func setup() (dir string, cleanup func() error, err error) {
 		return os.RemoveAll(dir)
 	}
 
-	var ep sc3ml.EventParameters
-	var f *os.File
 	var b []byte
 
-	if f, err = os.Open(filepath.Join("testdata", "2015p768477.xml")); err != nil {
+	q, err := fromSC3ML(filepath.Join("testdata", "2015p768477.xml"))
+	if err != nil {
 		return dir, c, err
 	}
 
-	defer f.Close()
-
-	if b, err = io.ReadAll(f); err != nil {
-		return dir, c, err
-	}
-
-	if ep, err = sc3ml.Unmarshal(b); err != nil {
-		return dir, c, err
-	}
-
-	if len(ep.Events) != 1 {
-		err = fmt.Errorf("should have found 1 event")
-		return dir, c, err
-	}
-
-	q := fromSC3ML(ep.Events[0])
 	if b, err = proto.Marshal(&q); err != nil {
 		return dir, c, err
 	}

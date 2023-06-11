@@ -1,19 +1,120 @@
+// Usage: sc3ml2quake input-dir output-dir
 package main
 
 import (
 	"github.com/gclitheroe/exp/internal/quake"
 	"github.com/gclitheroe/exp/internal/sc3ml"
+	"io"
+	"log"
+	"os"
+	"runtime"
+	"strings"
+	"sync"
+
+	"google.golang.org/protobuf/proto"
 )
+
+type files struct {
+	in, out string
+}
+
+func main() {
+	d, err := os.ReadDir(os.Args[1])
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// use a chan to fan out the work to as many processor functions as there are cores.
+	sc3ml := make(chan files)
+
+	go func() {
+		defer close(sc3ml)
+
+		var o string
+		var xml bool
+
+		for _, f := range d {
+			if f.Type().IsRegular() {
+				o, xml = strings.CutSuffix(f.Name(), ".xml")
+				if !xml {
+					continue
+				}
+
+				sc3ml <- files{in: os.Args[1] + string(os.PathSeparator) + f.Name(), out: os.Args[2] + string(os.PathSeparator) + o + ".pb"}
+			}
+		}
+	}()
+
+	var wg sync.WaitGroup
+	wg.Add(runtime.NumCPU())
+	for i := 0; i < runtime.NumCPU(); i++ {
+		go func() {
+			procSC3ML(sc3ml)
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
+
+func procSC3ML(sc3ml <-chan files) {
+	var b []byte
+	var err error
+	var q quake.Quake
+
+	for f := range sc3ml {
+		log.Println(f.in)
+
+		q, err = fromSC3ML(f.in)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+
+		b, err = proto.Marshal(&q)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+
+		err = os.WriteFile(f.out, b, 0644)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+	}
+}
 
 /*
 fromSC3ML converts sc3ml.Event to a Quake.
 Only Arrivals and StationMagnitudeContribution that have contributed
 to Origins or Magnitudes (Weight > 0) are included in the Quake.
 */
-func fromSC3ML(e sc3ml.Event) quake.Quake {
+func fromSC3ML(file string) (quake.Quake, error) {
+	var b []byte
+	var q quake.Quake
+
+	f, err := os.Open(file)
+	if err != nil {
+		return q, err
+	}
+
+	defer f.Close()
+
+	b, err = io.ReadAll(f)
+	if err != nil {
+		return q, err
+	}
+
+	ep, err := sc3ml.Unmarshal(b)
+	if err != nil {
+		return q, err
+	}
+
+	var e sc3ml.Event = ep.Events[0]
+
 	mt := e.ModificationTime()
 
-	q := quake.Quake{
+	q = quake.Quake{
 		PublicID: e.PublicID,
 		Type:     e.Type,
 		Agency:   e.CreationInfo.AgencyID,
@@ -98,5 +199,5 @@ func fromSC3ML(e sc3ml.Event) quake.Quake {
 		q.Magnitudes = append(q.Magnitudes, mag)
 	}
 
-	return q
+	return q, nil
 }
