@@ -192,8 +192,8 @@ func TestQuakeProto(t *testing.T) {
 		t.Errorf("expected publicID 2015p768477 got %s", e.PublicID)
 	}
 
-	if e.Type != "earthquake" {
-		t.Errorf("expected type earthquake got %s", e.Type)
+	if e.QuakeType != "earthquake" {
+		t.Errorf("expected type earthquake got %s", e.QuakeType)
 	}
 
 	if e.Agency != "WEL(GNS_Primary)" {
@@ -208,8 +208,8 @@ func TestQuakeProto(t *testing.T) {
 		t.Fatal("nil modification time")
 	}
 
-	if time.Unix(e.Time.Seconds, e.Time.Nanos).UTC().Format(time.RFC3339Nano) != "2015-10-12T08:05:01.717692Z" {
-		t.Errorf("time expected 2015-10-12T08:05:01.717692Z got %s", time.Unix(e.Time.Seconds, e.Time.Nanos).UTC().Format(time.RFC3339Nano))
+	if time.Unix(e.Time.Secs, e.Time.Nanos).UTC().Format(time.RFC3339Nano) != "2015-10-12T08:05:01.717692Z" {
+		t.Errorf("time expected 2015-10-12T08:05:01.717692Z got %s", time.Unix(e.Time.Secs, e.Time.Nanos).UTC().Format(time.RFC3339Nano))
 	}
 
 	if e.Latitude != -40.57806609 {
@@ -283,7 +283,7 @@ func TestQuakeProto(t *testing.T) {
 
 	var found bool
 	for _, v := range e.Magnitudes {
-		if v.Type == "ML" {
+		if v.MagnitudeType == "ML" {
 			found = true
 
 			if v.Magnitude != 6.057227661 {
@@ -295,8 +295,8 @@ func TestQuakeProto(t *testing.T) {
 			if v.StationCount != 23 {
 				t.Errorf("v.StationCount expected 23 got %d", v.StationCount)
 			}
-			if v.Method != "trimmed mean" {
-				t.Errorf("v.Method expected trimmed mean got %s", v.Method)
+			if v.MagnitudeMethod != "trimmed mean" {
+				t.Errorf("v.Method expected trimmed mean got %s", v.MagnitudeMethod)
 			}
 
 			if len(v.StationMagnitude) != 23 {

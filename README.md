@@ -1,6 +1,18 @@
 # exp
 
-Experiments, learning, and testing.  Also stuff and ting.
+Experiments and learning.  Also stuff and ting.
+
+## Protobufs
+
+Generate Go libs from protobuf files:
+
+```
+protoc --proto_path=protobuf --go_out=internal --go_opt=paths=source_relative quake/quake.proto quake/key.proto
+```
+
+## sc3ml2quake
+
+Converts earthquake information in SeismComPML format to Quake protobufs.  See also [Protobufs With Go](https://blog.geoffc.nz/protobufs-go/.)
 
 ### Unmarshal Performance
 
@@ -16,3 +28,19 @@ BenchmarkUnmarshalQuakeJSON-4    	    1000	   1800593 ns/op - Quake JSON
 BenchmarkUnmarshalQuakeProtobuf-4	   10000	    163473 ns/op - Quake protobuf
 ```  
 
+## Kafka
+
+Use the Confluent Kafka platform in Docker Compose https://ksqldb.io/quickstart-platform.html#quickstart-content
+
+### quake-producer-kafka
+
+Sends Quake protobufs to a Kafka topic using schema registry and key and quake protobuf schemas from `protobuf/quake`. 
+Protobufs for two quakes are included in `cmd/quake-producer-kafka/demo-data`.  See sc3ml2quake for creating more data.
+
+### quake-consumer-kafka
+
+Reads Quake protobufs from a Kafka topic.
+
+## Acknowledgement 
+
+The New Zealand GeoNet programme and its sponsors EQC, GNS Science, LINZ, NEMA and MBIE are acknowledged for providing data used in this repo.

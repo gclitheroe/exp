@@ -1,2 +1,4 @@
 .idea/
 cmd/sc3ml2quake/sc3ml2quake
+cmd/quake-producer-kafka/quake-producer-kafka
+cmd/quake-consumer-kafka/quake-consumer-kafka

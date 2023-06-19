@@ -1,7 +1,11 @@
+// Converts SeisCompML (XML) to quake protobufs.
 // Usage: sc3ml2quake input-dir output-dir
+// Usage: sc3ml2quake input-dir output-dir
+// Source data s3://seiscompml07
 package main
 
 import (
+	"flag"
 	"github.com/gclitheroe/exp/internal/quake"
 	"github.com/gclitheroe/exp/internal/sc3ml"
 	"io"
@@ -19,7 +23,14 @@ type files struct {
 }
 
 func main() {
-	d, err := os.ReadDir(os.Args[1])
+	var inDir, outDir string
+
+	flag.StringVar(&inDir, "input-dir", "/work/sc3ml", "directory with input sc3ml files")
+	flag.StringVar(&outDir, "output-dir", "/work/quake", "directory for quake protobuf file output")
+
+	flag.Parse()
+
+	d, err := os.ReadDir(inDir)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +51,7 @@ func main() {
 					continue
 				}
 
-				sc3ml <- files{in: os.Args[1] + string(os.PathSeparator) + f.Name(), out: os.Args[2] + string(os.PathSeparator) + o + ".pb"}
+				sc3ml <- files{in: inDir + string(os.PathSeparator) + f.Name(), out: outDir + string(os.PathSeparator) + o + ".pb"}
 			}
 		}
 	}()
@@ -115,16 +126,16 @@ func fromSC3ML(file string) (quake.Quake, error) {
 	mt := e.ModificationTime()
 
 	q = quake.Quake{
-		PublicID: e.PublicID,
-		Type:     e.Type,
-		Agency:   e.CreationInfo.AgencyID,
+		PublicID:  e.PublicID,
+		QuakeType: e.Type,
+		Agency:    e.CreationInfo.AgencyID,
 		ModificationTime: &quake.Timestamp{
-			Seconds: mt.Unix(),
-			Nanos:   int64(mt.Nanosecond()),
+			Secs:  mt.Unix(),
+			Nanos: int64(mt.Nanosecond()),
 		},
 		Time: &quake.Timestamp{
-			Seconds: e.PreferredOrigin.Time.Value.Unix(),
-			Nanos:   int64(e.PreferredOrigin.Time.Value.Nanosecond()),
+			Secs:  e.PreferredOrigin.Time.Value.Unix(),
+			Nanos: int64(e.PreferredOrigin.Time.Value.Nanosecond()),
 		},
 		Latitude:              e.PreferredOrigin.Latitude.Value,
 		LatitudeUncertainty:   e.PreferredOrigin.Latitude.Uncertainty,
@@ -151,8 +162,8 @@ func fromSC3ML(file string) (quake.Quake, error) {
 		if v.Weight > 0.0 {
 			p := &quake.Phase{
 				Time: &quake.Timestamp{
-					Seconds: v.Pick.Time.Value.Unix(),
-					Nanos:   int64(v.Pick.Time.Value.Nanosecond()),
+					Secs:  v.Pick.Time.Value.Unix(),
+					Nanos: int64(v.Pick.Time.Value.Nanosecond()),
 				},
 				Phase:            v.Phase,
 				Residual:         v.TimeResidual,
@@ -175,22 +186,22 @@ func fromSC3ML(file string) (quake.Quake, error) {
 		mag := &quake.Magnitude{
 			Magnitude:            m.Magnitude.Value,
 			MagnitudeUncertainty: m.Magnitude.Uncertainty,
-			Type:                 m.Type,
-			Method:               m.MethodID,
+			MagnitudeType:        m.Type,
+			MagnitudeMethod:      m.MethodID,
 			StationCount:         m.StationCount,
 		}
 
 		for _, v := range m.StationMagnitudeContributions {
 			if v.Weight > 0.0 {
 				s := &quake.StationMagnitude{
-					Weight:       v.Weight,
-					NetworkCode:  v.StationMagnitude.WaveformID.NetworkCode,
-					StationCode:  v.StationMagnitude.WaveformID.StationCode,
-					LocationCode: v.StationMagnitude.WaveformID.LocationCode,
-					ChannelCode:  v.StationMagnitude.WaveformID.ChannelCode,
-					Magnitude:    v.StationMagnitude.Magnitude.Value,
-					Type:         v.StationMagnitude.Type,
-					Amplitude:    v.StationMagnitude.Amplitude.Amplitude.Value,
+					Weight:        v.Weight,
+					NetworkCode:   v.StationMagnitude.WaveformID.NetworkCode,
+					StationCode:   v.StationMagnitude.WaveformID.StationCode,
+					LocationCode:  v.StationMagnitude.WaveformID.LocationCode,
+					ChannelCode:   v.StationMagnitude.WaveformID.ChannelCode,
+					Magnitude:     v.StationMagnitude.Magnitude.Value,
+					MagnitudeType: v.StationMagnitude.Type,
+					Amplitude:     v.StationMagnitude.Amplitude.Amplitude.Value,
 				}
 
 				mag.StationMagnitude = append(mag.StationMagnitude, s)

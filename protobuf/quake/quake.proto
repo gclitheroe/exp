@@ -4,6 +4,7 @@ package quake;
 option go_package = ".;quake";
 
 // Quake is for earthquake information.
+// Field names are chosen to avoid clashes with ksqldb keywords
 message Quake {
 	// All the Phase used to locate the quake.
 	repeated Phase phases = 1;
@@ -12,7 +13,7 @@ message Quake {
 
 
 	string public_iD = 10;
-	string type = 11;
+	string quake_type = 11;
 
 
 	Timestamp time = 12;
@@ -78,8 +79,8 @@ message Magnitude {
 
 	double magnitude = 2;
 	double magnitude_uncertainty = 3;
-	string type = 4;
-	string method = 5;
+	string magnitude_type = 4;
+	string magnitude_method = 5;
 	int64 station_count = 6;
 }
 
@@ -91,7 +92,7 @@ message StationMagnitude {
 	string channel_code = 4;
 
 	double magnitude = 5;
-	string type = 6;
+	string magnitude_type = 6;
 
 	double residual = 7;
 	double weight = 8;
@@ -101,8 +102,8 @@ message StationMagnitude {
 
 // Timestamp for encoding time stamps.
 message Timestamp {
-// Unix time in seconds
-  int64 seconds = 1;
-// Frational part of time in nanoseconds.
+	// Unix time in seconds
+  int64 secs = 1;
+	// Frational part of time in nanoseconds.
   int64 nanos = 2;
 }
