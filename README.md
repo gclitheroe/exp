@@ -30,7 +30,13 @@ BenchmarkUnmarshalQuakeProtobuf-4	   10000	    163473 ns/op - Quake protobuf
 
 ## Kafka
 
-Use the Confluent Kafka platform in Docker Compose https://ksqldb.io/quickstart-platform.html#quickstart-content
+Use the Docker Compose file in the `kafka` directory.  This is from https://ksqldb.io/quickstart-platform.html#quickstart-content
+
+```
+docker-compose up -d
+...
+docker-compose down
+```
 
 ### quake-producer-kafka
 
