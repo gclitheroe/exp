@@ -12,7 +12,7 @@ protoc --proto_path=protobuf --go_out=internal --go_opt=paths=source_relative qu
 
 ## sc3ml2quake
 
-Converts earthquake information in SeismComPML format to Quake protobufs.  See also [Protobufs With Go](https://blog.geoffc.nz/protobufs-go/.)
+Converts earthquake information in SeismComPML format to Quake protobufs.  See also [Protobufs With Go](https://blog.geoffc.nz/protobufs-go/)
 
 ### Unmarshal Performance
 
