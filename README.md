@@ -35,7 +35,17 @@ Use the Confluent Kafka platform in Docker Compose https://ksqldb.io/quickstart-
 ### quake-producer-kafka
 
 Sends Quake protobufs to a Kafka topic using schema registry and key and quake protobuf schemas from `protobuf/quake`. 
-Protobufs for two quakes are included in `cmd/quake-producer-kafka/demo-data`.  See sc3ml2quake for creating more data.
+Protobufs for two quakes are included in `cmd/quake-producer-kafka/demo-data`.  
+
+For experimenting with more data the [quake-protobufs](https://github.com/gclitheroe/exp/releases/tag/quake-protobuf) release on this repo has a tar file
+`quake-2020.tar.gz`.  It contains 304510 update files for 22355 earthquakes from New Zealand from the year 2020.  
+Download and extract this file and then run:
+
+```
+quake-producer-kafka path/quake-2020
+```
+
+See sc3ml2quake for creating more data.
 
 ### quake-consumer-kafka
 
