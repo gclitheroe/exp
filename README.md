@@ -30,6 +30,8 @@ BenchmarkUnmarshalQuakeProtobuf-4	   10000	    163473 ns/op - Quake protobuf
 
 ## Kafka
 
+See [https://blog.geoffc.nz/kafka-ksqldb-quakes/](https://blog.geoffc.nz/kafka-ksqldb-quakes/) for more information about working with the Kafka examples.
+
 Use the Docker Compose file in the `kafka` directory.  This is from https://ksqldb.io/quickstart-platform.html#quickstart-content
 
 ```
