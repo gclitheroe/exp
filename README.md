@@ -59,6 +59,18 @@ See sc3ml2quake for creating more data.
 
 Reads Quake protobufs from a Kafka topic.
 
+## NATS
+
+* [https://docs.nats.io/](https://docs.nats.io/)
+* [https://natsbyexample.com/](https://natsbyexample.com/)
+
+`docker run -p 4222:4222 -p 8222:8222 -p 6222:6222 -ti nats:latest`
+
+### quake-producer-nats
+
+### quake-consumer-nats
+
+
 ## Acknowledgement 
 
 The New Zealand GeoNet programme and its sponsors EQC, GNS Science, LINZ, NEMA and MBIE are acknowledged for providing data used in this repo.
