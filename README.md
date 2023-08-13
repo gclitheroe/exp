@@ -84,6 +84,7 @@ Reads Quake protobufs from a Kafka topic.
 
 ### Setup
 
+Download input data from https://github.com/gclitheroe/exp/releases/download/pgvector/data.tar.gz
 Run the Docker container with pgvector already installed.
 
 ```shell
