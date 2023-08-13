@@ -82,7 +82,18 @@ Reads Quake protobufs from a Kafka topic.
 
 `cmd/search-pgvector` contains scripts and data for experimenting with vector search in Postgres using the [pgvector](https://github.com/pgvector/pgvector) extension. 
 
+See [https://blog.geoffc.nz/pgvector/](https://blog.geoffc.nz/pgvector/) for more information.
+
+Container with test data preloaded
+
+```shell
+docker pull gclitheroe/pgvector-exp
+docker run --name pgvector-test -e POSTGRES_PASSWORD=password -d -p 5432:5432 gclitheroe/pgvector-exp
+```
+
 ### Setup
+
+Or see prebuilt Docker image later on.
 
 Download input data from https://github.com/gclitheroe/exp/releases/download/pgvector/data.tar.gz
 Run the Docker container with pgvector already installed.
@@ -273,7 +284,7 @@ Execution Time: 74.620 ms
 
 ### Data Generation
 
-Input data from [https://www.kaggle.com/](https://www.kaggle.com/):
+Data from [https://www.kaggle.com/](https://www.kaggle.com/):
 * 8469 tickets from [Customer Support Ticket Dataset](https://www.kaggle.com/datasets/suraj520/customer-support-ticket-dataset)
 * 5332153 github issues from [GitHub Issues](https://www.kaggle.com/datasets/davidshinn/github-issues)
 
@@ -307,6 +318,27 @@ import torch.nn.functional as F
 ...
 embeddings = F.normalize(embeddings, p=2, dim=1)
 ```
+
+### Docker build
+
+https://cadu.dev/creating-a-docker-image-with-database-preloaded/
+
+Using the dumpfile created with
+
+```shell
+pg_dump -h localhost -p 5432 -U postgres postgres > data/pgvector_dump.sql
+```
+
+Edit the dumpfile and add:
+
+```postgresql
+SET maintenance_work_mem TO '512 MB';
+```
+
+```shell
+docker image build . -t gclitheroe/pgvector-exp:latest
+```
+
 
 ---
 
