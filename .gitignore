@@ -4,3 +4,4 @@ cmd/quake-producer-kafka/quake-producer-kafka
 cmd/quake-consumer-kafka/quake-consumer-kafka
 cmd/quake-producer-nats/quake-producer-nats
 cmd/quake-consumer-nats/quake-consumer-nats
+cmd/search-pgvector/data/*
